@@ -17,7 +17,8 @@ endWork=16
 print(platform)
 if platform.lower().startswith("win"):
     osys="Windows"
-elif platform==platform
+else:
+    osys=platform
 print(platform)
 #betwwen 8 and 16 the blocker will block a list of websites
 while True:
