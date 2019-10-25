@@ -9,18 +9,16 @@ redirect = '127.0.0.1'
 
 # setting the start and end hours during which 
 # the websites are in hosts (blocked)
-
+# the blocker will block a list of websites over a time span defined by startWork and endWork
 startWork=8
 endWork=16
 
-#print(hostsPath)
-#print(platform)
 if platform.lower().startswith("win"):
     osys="Windows"
 else:
     osys=platform
 print(platform)
-#betwwen 8 and 16 the blocker will block a list of websites
+
 while True:
     if dt(dt.now().year,dt.now().month,dt.now().day, startWork) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day, endWork):
         print("===Working hours ===")
@@ -49,5 +47,3 @@ while True:
         print("Fun hours...")
     time.sleep(5)
 
-#file.seek(0)
-#print(file.read())
