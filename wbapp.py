@@ -9,7 +9,7 @@ def home():
 
 @app.route('/about/')
 def about():
-    return render_template("about.html")
+    return render_template("about.html",say_hi_name="Iulian")
 
 #when the script is executed by running the command 
 # 'python wbapp.py' the __name__ variable gets value __main__
