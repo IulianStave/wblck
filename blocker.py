@@ -13,11 +13,18 @@ redirect = '127.0.0.1'
 startWork=8
 endWork=16
 
+
 if platform.lower().startswith("win"):
     osys="Windows"
+    print(osys)
+    hostsPath=r"C:\Windows\System32\drivers\etc\hosts"
+elif platform.lower() == 'linux':
+    hostsPath=r"/etc/hosts"
+    osys = platform
 else:
-    osys=platform
-print(platform)
+    hostsPath=input("Enter hosts file path: ")
+
+print("Runing websites blocker on {} OS. Press Ctrl-C to stop the program" .format(osys))
 
 while True:
     if dt(dt.now().year,dt.now().month,dt.now().day, startWork) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day, endWork):
