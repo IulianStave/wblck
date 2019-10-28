@@ -12,7 +12,6 @@ from sys import platform
 from sys import argv
 
 hostsPath=r"C:\Windows\System32\drivers\etc\hosts"
-hostsPathTemp=r"C:\\dev\\basics\\hosts"
 websitesList = [
     'facebook.com',
     'www.facebook.com',
