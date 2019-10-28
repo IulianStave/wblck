@@ -54,3 +54,40 @@ newL=[item for item in myL if item>5]
 print(newL)
 #for item in myL if item > 7:
  #   print(item)
+my_movies = [['How I Met Your Mother', 'Friends', 'Silicon Valley'],
+    ['Family Guy', 'South Park', 'Rick and Morty'],
+    ['Breaking Bad', 'Game of Thrones', 'The Wire']]
+#"The title [movie_title] is [X] characters long."
+
+for movieL in my_movies:
+    for movie in movieL:
+        print ("The title {} is {} characters long".format(movie, len(movie)))
+
+for i in range(1,3):
+    print(i)
+
+
+down = 0
+up = 100
+print('a')
+for i in range(1,10):
+    guessed = int((up + down) / 2)
+    answer=''
+    '''
+    while True:
+        answer = input('Are you {} years old ? [less / more / correct] '.format(guessed))
+        if answer in ['less','correct','more']:
+            break   
+    
+    '''
+    while answer not in ['less','correct','more']:
+        answer = input('Are you {} years old ? [less / more / correct] '.format(guessed))
+    if answer == 'correct':
+        print ('Nice, so your age is {} '.format(guessed))
+        break
+    elif answer =='less':
+        up = guessed
+    else:
+        down = guessed
+    
+
