@@ -64,7 +64,6 @@ if path.exists(sourceList):
     print('Reading the list of websites from {} file'.format(sourceList))
     with open(sourceList,"r") as f:
         websitesL = f.read().splitlines()
-        print (type(websitesL))
         print("The following websites are banned during the time span {} - {}".format(startWork, endWork))
         for w in websitesL:
             print(w)
@@ -84,32 +83,14 @@ while True:
             print("Done")
     else:
         print("=== Fun hours... Outside office hours {} : {} ===".format(startWork, endWork))
-        print(websitesList)
         with open(hostsPath,"r+") as file:
             content=file.readlines()
             file.seek(0)
             #print(content)
             print("Every 5 seconds, if the line contains any of the websites it won't be written in hosts")
             for line in content:
-                print("===",line)
                 #write all the lines that do not contain websites from the list
                 if not any(website in line for website in websitesList):
                     file.write(line)
             file.truncate()
     time.sleep(sleep_time)
-
-    '''
-    else:
-        with open(hostsPath,"r+") as file:
-            content = file.readlines()
-            file.seek(0)
-            print("Every {} seconds, if the line contains any of the websites it won't be written in hosts".format(sleep_time))
-            print (content)
-            for line in content:
-                if not any(website in line for website in websitesList):
-                    file.write(line)
-            file.truncate()
-            print("=== Fun hours, outside working hours {} :: {} ===".format(startWork,endWork))
-            print("Done")
-  '''
-
