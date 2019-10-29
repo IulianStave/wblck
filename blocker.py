@@ -11,6 +11,8 @@ sudo python3 blocker.py 7 19
   "Run as administrator" the cmd command to open terminal
 python blocker.py
 python blocker.py 7 19
+
+[Note] The banlist.conf file should not contain any blank lines
 '''
 import time
 from datetime import datetime as dt
