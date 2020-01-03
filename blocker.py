@@ -1,10 +1,11 @@
 '''
-The blocker will block a list of websites over a time span set by startWork and endWork
+The blocker will block a list of websites over a time span set by
+startWork and endWork
 
 Administrative privileges required to run the script
-> linux:: 
+> linux:
 sudo python3 blocker.py
-  furthermore, to set the time span during which the websites will be blocked, 
+  furthermore, to set the time span during which the websites will be blocked,
   the starting time and the ending time can be added as command line arguments
 sudo python3 blocker.py 7 19
 > windows:
@@ -14,7 +15,6 @@ python blocker.py 7 19
 
 [Note] The banlist.conf file should not contain any blank lines
 '''
-
 
 import time
 from datetime import datetime as dt
@@ -52,9 +52,6 @@ else:
     hostsPath = input("Enter hosts file path: ")
 
 print(f'Runing blocker on {osys}. Press Ctrl-C to stop the program')
-
-# use sys.argv to read command line arguments to determine time span to block websites
-# setting the start and end hours during which
 if len(argv) == 3:
     startWork = int(argv[1])
     endWork = int(argv[2])
