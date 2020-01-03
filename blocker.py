@@ -14,14 +14,17 @@ python blocker.py 7 19
 
 [Note] The banlist.conf file should not contain any blank lines
 '''
+
+
 import time
 from datetime import datetime as dt
 from sys import platform
 from sys import argv
 from os import path
 
-hostsPath=r"C:\Windows\System32\drivers\etc\hosts"
-#default websites list, in case the configuration file is not present
+hostsPath = r"C:\Windows\System32\drivers\etc\hosts"
+# default websites list, in case the configuration file is not present
+
 websitesList = [
     'facebook.com',
     'www.facebook.com',
@@ -30,25 +33,25 @@ websitesList = [
     'digi24.ro',
     'www.digi24.ro',
     'stirileprotv.ro',
-    ]
+]
 redirect = '127.0.0.1'
 sourceList = 'banlist.conf'
 startWork = 8
 endWork = 19
-sleep_time = 5 # how often the check is performed
+sleep_time = 5  # how often the check is performed
 
-#Set the 'hosts' file path depending on the OS
+# Set the 'hosts' file path depending on the OS
 if platform.lower().startswith("win"):
-    osys="Windows"
+    osys = "Windows"
     print(osys)
-    hostsPath=r"C:\Windows\System32\drivers\etc\hosts"
+    hostsPath = r"C:\Windows\System32\drivers\etc\hosts"
 elif platform.lower() == 'linux':
-    hostsPath=r"/etc/hosts"
+    hostsPath = r"/etc/hosts"
     osys = platform
 else:
-    hostsPath=input("Enter hosts file path: ")
+    hostsPath = input("Enter hosts file path: ")
 
-print("Runing websites blocker on {} OS. Press Ctrl-C to stop the program" .format(osys))
+print(f'Runing blocker on {osys}. Press Ctrl-C to stop the program')
 
 # use sys.argv to read command line arguments to determine time span to block websites
 # setting the start and end hours during which
@@ -57,39 +60,42 @@ if len(argv) == 3:
     endWork = int(argv[2])
     print("Working hours set to {} : {}".format(startWork, endWork))
 else:
-    print("! The begining and the end of work hours haven't beend passed through command line arguments\n\n")
+    print('! Default time span {startWork}:{endWork} \n\n')
 
 # Reading the list of websites from a configuration file
 if path.exists(sourceList):
     print('Reading the list of websites from {} file'.format(sourceList))
-    with open(sourceList,"r") as f:
+    with open(sourceList) as f:
         websitesL = f.read().splitlines()
-        print("The following websites are banned during the time span {} - {}".format(startWork, endWork))
-        for w in websitesL:
-            print(w)
+        print(f'Websites banned during the time span {startWork} - {endWork}')
+        for website in websitesL:
+            print(website)
         websitesList = websitesL
 
 while True:
-    if dt(dt.now().year,dt.now().month,dt.now().day, startWork) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day, endWork):
-        print("=== Working hours {} :: {} ===".format(startWork,endWork))
-        with open(hostsPath,"r+") as file:
-            content=file.read()
-            print("Every {} seconds, if the websites are not in the hosts file, they will be added to the file".format(sleep_time))
+    start_time = dt(dt.now().year, dt.now().month, dt.now().day, startWork)
+    end_time = dt(dt.now().year, dt.now().month, dt.now().day, endWork)
+    if start_time < dt.now() < end_time:
+        print(f'=== Working hours {startWork} :: {endWork} ===')
+        with open(hostsPath, "r+") as file:
+            content = file.read()
+            print(f'Every {sleep_time} update the {hostsPath}')
             for website in websitesList:
                 if website in content:
                     pass
                 else:
-                    file.write("{} {} \n".format(redirect, website))
-            print("Done")
+                    file.write(f'{redirect} {website}\n')
+            print("Update completed! ")
     else:
-        print("=== Fun hours... Outside office hours {} : {} ===".format(startWork, endWork))
-        with open(hostsPath,"r+") as file:
-            content=file.readlines()
+        print(f'Fun hours... Outside office hours {startWork} : {endWork}')
+        with open(hostsPath, "r+") as file:
+            content_lines = file.readlines()
             file.seek(0)
-            #print(content)
-            print("Every 5 seconds, if the line contains any of the websites it won't be written in hosts")
-            for line in content:
-                #write all the lines that do not contain websites from the list
+            print(
+                f'Every {sleep_time} seconds, if the line contains any '
+                'of the websites it won\'t be written in hosts'
+                )
+            for line in content_lines:
                 if not any(website in line for website in websitesList):
                     file.write(line)
             file.truncate()
