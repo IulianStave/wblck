@@ -55,13 +55,13 @@ print(f'Runing blocker on {osys}. Press Ctrl-C to stop the program')
 if len(argv) == 3:
     startWork = int(argv[1])
     endWork = int(argv[2])
-    print("Working hours set to {} : {}".format(startWork, endWork))
+    print(f'Working hours set to {startWork} : {endWork}')
 else:
     print('! Default time span {startWork}:{endWork} \n\n')
 
 # Reading the list of websites from a configuration file
 if path.exists(sourceList):
-    print('Reading the list of websites from {} file'.format(sourceList))
+    print(f'Reading the list of websites from {sourceList} file')
     with open(sourceList) as f:
         websitesL = f.read().splitlines()
         print(f'Websites banned during the time span {startWork} - {endWork}')
@@ -76,7 +76,7 @@ while True:
         print(f'=== Working hours {startWork} :: {endWork} ===')
         with open(hostsPath, "r+") as file:
             content = file.read()
-            print(f'Every {sleep_time} update the {hostsPath}')
+            print(f'Every {sleep_time} seconds update {hostsPath}')
             for website in websitesList:
                 if website in content:
                     pass
